@@ -26,7 +26,7 @@ const app = {
       solution: 'Styx',
     },
     {
-      question: 'Who is the first woman made by Hephaistos ?',
+      question: 'In the greek mythology, Who is the first woman made by Hephaistos ?',
       solution: 'Pandore',
     },
   ],
@@ -36,13 +36,19 @@ const app = {
   outputValue: '',
   dice: null,
   isDiceThrown: false,
+  isQuestion: false,
+  attempt: 3,
+  question: '',
+  solution: '',
 
   init: () => {
-    console.log(app.questions)
     userInput = document.querySelector('.terminal-input')
     userInput.value = app.inputValue
     submit = document.querySelector('.terminal-form')
     outputTerminal = document.querySelector('.terminal-output')
+    if(outputTerminal.lastChild) {
+      outputTerminal.scrollTo(0, outputTerminal.offsetHeight)
+    }
 
     userInput.addEventListener('change', app.loadValue)
     submit.addEventListener('submit', app.sendValue)
@@ -58,6 +64,13 @@ const app = {
     app.verifyValue()
     app.createElement()
     app.updateDisplay()
+    if(app.isDiceThrown){
+      setTimeout(() => {
+        app.startQuestion()
+        app.createElement()
+        app.updateDisplay()
+      }, 1000)
+    }
   },
 
   createElement: () => {
@@ -78,7 +91,26 @@ const app = {
         return app.startTheGame()
       case '/dice':
         return app.throwDice()
-      default: return app.outputValue = 'Wrong command: Type /help to get more informations'
+      default: if (app.isQuestion) {
+        return app.verifyAnswer(app.inputValue)
+      } else {
+        return app.outputValue = 'Wrong command: Type /help to get more informations'
+      }
+    }
+  },
+
+  verifyAnswer: (userValue) => {
+    const userValuetoLower = userValue.toLowerCase()
+    const userInputToLower = app.solution.toLowerCase()
+    if (userValuetoLower.includes(userInputToLower)) {
+      app.outputValue = "You have the good answer ! You can stay at this cell and throw the dice"
+      app.attempt = 3
+      app.isQuestion = false
+      app.isDiceThrown = false
+    } else {
+      app.attempt--
+      const attempt = app.attemps < 2 ? 'attempt' : 'attempts'
+      app.outputValue = `Wrong answer, you have ${app.attempt} ${attempt} left`
     }
   },
 
@@ -104,7 +136,6 @@ const app = {
     const player = document.querySelector('.player')
     const currentPosition = player.getAttribute('data-number')
     const currentPositionToNumb = parseInt(currentPosition)
-    console.log(typeof currentPositionToNumb)
     const nextPosition = currentPositionToNumb + app.dice
     player.classList.remove('player')
 
@@ -123,11 +154,15 @@ const app = {
   startQuestion: () => {
     const player = document.querySelector('.player')
     const currentPosition = player.getAttribute('data-number')
-
-    // for(let i = 0; i < app.questions; i++) {
-    //   if()
-    // }
-
+    const currentPositionToNum = parseInt(currentPosition)
+    if (currentPositionToNum > 0) {
+      app.isQuestion = true
+      app.question = app.questions[currentPositionToNum - 1].question
+      app.solution = app.questions[currentPositionToNum - 1].solution
+      app.outputValue = app.question
+    } else {
+      return app.outputValue = 'Please throw the dice'
+    }
   },
 
   startTheGame: () => {
@@ -139,7 +174,6 @@ const app = {
     app.isGameStarted = true
     app.outputValue = 'Game started, you can now throw the dice'
     const startSound = new Audio('js/soundEffect/start.mp3')
-    console.log(startSound)
     startSound.play()
   },
 
