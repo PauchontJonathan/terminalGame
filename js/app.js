@@ -43,6 +43,7 @@ const app = {
     }
   ],
 
+  isMusicPlay: false,
   isGameStarted: false,
   inputValue: '',
   outputValue: '',
@@ -55,6 +56,8 @@ const app = {
   isLose : false,
 
   init: () => {
+    music = new Audio('js/soundEffect/joystock-neon-lights.mp3')
+    play = document.querySelector('.music')
     userInput = document.querySelector('.terminal-input')
     userInput.value = app.inputValue
     submit = document.querySelector('.terminal-form')
@@ -65,6 +68,21 @@ const app = {
 
     userInput.addEventListener('change', app.loadValue)
     submit.addEventListener('submit', app.sendValue)
+    play.addEventListener('click', app.handleMusic)
+  },
+
+  handleMusic: () => {
+    app.isMusicPlay = !app.isMusicPlay
+    if(app.isMusicPlay) {
+      music.play()
+      play.classList.add('fa-play-circle')
+      play.classList.remove('fa-stop-circle')
+    } else if (!app.isMusicPlay) {
+      music.pause()
+      music.currentTime = 0
+      play.classList.remove('fa-play-circle')
+      play.classList.add('fa-stop-circle')
+    }
   },
 
   loadValue: (e) => {
@@ -207,8 +225,6 @@ const app = {
     }
     app.isGameStarted = true
     app.outputValue = 'Game started, you can now throw the dice'
-    const startSound = new Audio('js/soundEffect/start.mp3')
-    startSound.play()
   },
 
   clearAll: () => {
