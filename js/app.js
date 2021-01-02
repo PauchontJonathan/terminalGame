@@ -1,7 +1,7 @@
 const app = {
 
   data: [
-    '/clear: clear the terminal. /start: start the game. /dice: throw the dice, and give you a random number between 1 and 6.'
+    '\'/clear\': clear all lines but not the last one. \'/start\': start the game. \'/dice\': throw a 6-sided dice and move your character.'
   ],
 
   questions: [
@@ -22,13 +22,25 @@ const app = {
       solution: 'Persephone',
     },
     {
-      question: 'In the geek mythology, where is Charon in hells ?',
+      question: 'In the greek mythology, where is Charon in hells ?',
       solution: 'Styx',
     },
     {
       question: 'In the greek mythology, Who is the first woman made by Hephaistos ?',
       solution: 'Pandore',
     },
+    {
+      question: 'In the greek mythology, what is the weapon of Poseidon ?',
+      solution: 'Trident',
+    },
+    {
+      question: 'In which video game can we play Kratos ?',
+      solution: 'God of war',
+    },
+    {
+      question: 'In the greek mythology, who is the gardian of hells ?',
+      solution: 'Cerberus',
+    }
   ],
 
   isGameStarted: false,
@@ -40,6 +52,7 @@ const app = {
   attempt: 3,
   question: '',
   solution: '',
+  isLose : false,
 
   init: () => {
     userInput = document.querySelector('.terminal-input')
@@ -63,14 +76,14 @@ const app = {
     e.preventDefault()
     app.verifyValue()
     app.createElement()
-    app.updateDisplay()
-    if(app.isDiceThrown){
+    if(app.isDiceThrown && !app.isLose && app.inputValue !== '/clear'){
       setTimeout(() => {
         app.startQuestion()
         app.createElement()
         app.updateDisplay()
       }, 1000)
     }
+    app.updateDisplay()
   },
 
   createElement: () => {
@@ -109,8 +122,29 @@ const app = {
       app.isDiceThrown = false
     } else {
       app.attempt--
-      const attempt = app.attemps < 2 ? 'attempt' : 'attempts'
-      app.outputValue = `Wrong answer, you have ${app.attempt} ${attempt} left`
+      if(app.attempt < 1) {
+        app.isLose = true
+        app.lose()
+      } else if (app.attempt > 0) {
+        const attempt = app.attempt < 2 ? 'attempt' : 'attempts'
+        app.outputValue = `Wrong answer, you have ${app.attempt} ${attempt} left`
+      }
+    }
+  },
+
+  lose: () => {
+    const player = document.querySelector('.player')
+    player.classList.remove('player')
+    const allPosition = document.querySelectorAll('.game-cell')
+    for(let i = 0; i < allPosition.length; i++) {
+      if(allPosition[0]) {
+        allPosition[0].classList.add('player')
+        app.outputValue = 'You lose, you can try again by throwing the dice'
+        app.isLose = false
+        app.attempt = 3
+        app.isQuestion = false
+        app.isDiceThrown = false
+      }
     }
   },
 
@@ -129,7 +163,7 @@ const app = {
     
     app.outputValue = 'Your character is moving by ' + app.dice + roll
 
-    app.moveCharacter()
+    if(!app.isLose) return app.moveCharacter()
   },
 
   moveCharacter: () => {
@@ -186,7 +220,6 @@ const app = {
   updateDisplay: () => {
     app.inputValue = ''
     app.init();
-
   },
 }
 

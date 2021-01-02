@@ -4,37 +4,48 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./css/style.css"/>
-  <title>game</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+  <title>terminal-game</title>
 </head>
 <body>
-  <div class="game">
-    <div class="game-cell player" data-number="0"></div>
-    <div class="game-cell" data-number="1"></div>
-    <div class="game-cell" data-number="2"></div>
-    <div class="game-cell" data-number="3"></div>
-    <div class="game-cell" data-number="4"></div>
-    <div class="game-cell" data-number="5"></div>
-    <div class="game-cell" data-number="6"></div>
-    <div class="game-cell" data-number="7"></div>
-    <div class="game-cell" data-number="8"></div>
-    <div class="game-cell" data-number="9"></div>
-    <div class="game-cell" data-number="10"></div>
-    <div class="game-cell" data-number="11"></div>
-    <div class="game-cell" data-number="12"></div>
-    <div class="game-cell" data-number="13"></div>
-    <div class="game-cell" data-number="14"></div>
-    <div class="game-cell" data-number="15"></div>
-    <div class="game-cell" data-number="16"></div>
-    <div class="game-cell" data-number="17"></div>
-    <div class="game-cell" data-number="18"></div>
-    <div class="game-cell win" data-number="19"></div>
+  <header class="title">
+    <h1 class="title-name">Terminal-Game</h1>
+    <p class="title-description" >Welcome in the terminal-game. In this game, you will need to help the character to find his way out to the flag. To do that, you have a terminal interface. Try tapping "/help" there to learn how it works. You'll need to answer to different kind of questions, if you have more than three errors on one question then you will restart to the beginning ! Good Luck !</p>
+  </header>
+  <div class="container">
+    <div class="game">
+      <div class="game-cell player" data-number="0"></div>
+      <div class="game-cell" data-number="1"></div>
+      <div class="game-cell" data-number="2"></div>
+      <div class="game-cell" data-number="3"></div>
+      <div class="game-cell" data-number="4"></div>
+      <div class="game-cell" data-number="5"></div>
+      <div class="game-cell" data-number="6"></div>
+      <div class="game-cell" data-number="7"></div>
+      <div class="game-cell" data-number="8"></div>
+      <div class="game-cell" data-number="9"></div>
+      <div class="game-cell" data-number="10"></div>
+      <div class="game-cell" data-number="11"></div>
+      <div class="game-cell" data-number="12"></div>
+      <div class="game-cell" data-number="13"></div>
+      <div class="game-cell" data-number="14"></div>
+      <div class="game-cell" data-number="15"></div>
+      <div class="game-cell" data-number="16"></div>
+      <div class="game-cell" data-number="17"></div>
+      <div class="game-cell" data-number="18"></div>
+      <div class="game-cell win" data-number="19"></div>
+    </div>
+    <div class="terminal">
+      <div class="terminal-output"></div>
+      <form class="terminal-form">
+        <input class="terminal-input"type="text" placeholder="type /help for more informations..."/>
+      </form>
+    </div>
   </div>
-  <div class="terminal">
-    <div class="terminal-output"></div>
-    <form class="terminal-form">
-      <input class="terminal-input"type="text" placeholder="type /help for more informations..."/>
-    </form>
-  </div>
+  <footer class="footer">
+    <p class="footer-made">Made with ♡ by Me</p>
+  </footer>
   <script type="text/javascript" src="./js/app.js"></script>
 </body>
 </html>

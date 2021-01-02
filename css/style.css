@@ -1,6 +1,39 @@
 body {
   display: flex;
   flex-direction: column;
+  margin: inherit;
+}
+
+.title {
+  font-family: 'Audiowide', cursive;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+.title-name {
+  align-self: flex-start;
+  font-size: 3.5rem;
+  width: 30rem;
+  padding-bottom: 1rem;
+  margin-left: 1rem;
+  border-bottom: 1px solid #000;
+}
+
+.title-description  {
+  align-self: flex-start;
+  margin-left: 1rem;
+  width: 70%;
+  font-size: 1.5rem;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .game {
@@ -9,12 +42,13 @@ body {
   align-self: center;
   width: 30rem;
   height: 30rem;
+  box-shadow: 0px 0px 50px 0px #656565;
 }
 .game-cell {
   position: relative;
   z-index: 0;
   border: rgb(255, 255, 255) solid 2px;
-  width: 23.37%;
+  width: 24%;
   background-image: url('https://cdn.pixabay.com/photo/2016/12/24/23/50/pattern-1929506_960_720.png');
   background-repeat: no-repeat;
   background-size: cover;
@@ -33,12 +67,14 @@ body {
 }
 .terminal {
   align-self: center;
+  font-size: 1.1rem;
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
   background-color: #000;
   width: 50rem;
   height: 30rem;
+  box-shadow: 0px 0px 50px 0px #656565;
 }
 .terminal-output {
   height: 90%;
@@ -67,4 +103,19 @@ body {
 }
 .terminal-input:focus {
   outline: none;
+}
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 8rem;
+  margin-top: 5rem;
+  background-color: #000;
+  color: #fff;
+}
+
+.footer-made {
+  align-self: center;
+  font-size: 1.1rem;
 }
