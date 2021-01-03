@@ -27,7 +27,7 @@ const app = {
     },
     {
       question: 'In the greek mythology, Who is the first woman made by Hephaistos ?',
-      solution: 'Pandore',
+      solution: 'Pandora',
     },
     {
       question: 'In the greek mythology, what is the weapon of Poseidon ?',
