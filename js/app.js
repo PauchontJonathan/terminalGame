@@ -79,6 +79,7 @@ const app = {
     },
   ],
 
+  music: new Audio('js/soundEffect/joystock-neon-lights.mp3'),
   isMusicPlay: false,
   isGameStarted: false,
   inputValue: '',
@@ -93,7 +94,6 @@ const app = {
   isWin: false,
 
   init: () => {
-    music = new Audio('js/soundEffect/joystock-neon-lights.mp3')
     play = document.querySelector('.music')
     userInput = document.querySelector('.terminal-input')
     userInput.value = app.inputValue
@@ -111,12 +111,12 @@ const app = {
   handleMusic: () => {
     app.isMusicPlay = !app.isMusicPlay
     if(app.isMusicPlay) {
-      music.play()
+      app.music.play()
       play.classList.add('fa-stop-circle')
       play.classList.remove('fa-play-circle')
     } else if (!app.isMusicPlay) {
-      music.pause()
-      music.currentTime = 0
+      app.music.pause()
+      app.music.currentTime = 0
       play.classList.remove('fa-stop-circle')
       play.classList.add('fa-play-circle')
     }
