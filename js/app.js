@@ -1,7 +1,7 @@
 const app = {
 
   data: [
-    '\'/clear\': clear all lines but not the last one. \'/start\': start the game. \'/dice\': throw a 6-sided dice and move your character.'
+    '\'/clear\': clear all lines but not the last one. \'/start\': start the game. \'/dice\': throw a 6-sided dice and move your character. \'/restart\': restart the game, when you arrive at the flag'
   ],
 
   questions: [
@@ -40,7 +40,43 @@ const app = {
     {
       question: 'In the greek mythology, who is the gardian of hells ?',
       solution: 'Cerberus',
-    }
+    },
+    {
+      question: 'In Star Wars, what is the color of Obi-Wan kenobi\'s lightsaber ?',
+      solution: 'Blue',
+    },
+    {
+      question: 'In Star Wars, On which planet does Luke Skywalker meet Yoda for the first time ?',
+      solution: 'Dagobah',
+    },
+    {
+      question: 'In Harry Potter, What animal represents the Slytherin house ?',
+      solution: 'Snake',
+    },
+    {
+      question: 'In Harry Potter, What candy is given to a person who saw a dementor ?',
+      solution: 'Chocolate',
+    },
+    {
+      question: 'Who is the writer of Sherlock Holmes\' stories ?',
+      solution: 'Arthur Conan Doyle',
+    },
+    {
+      question: 'Which character in Harry Potter says the line "The ones who love us never really leave us" ?',
+      solution: 'Sirius Black',
+    },
+    {
+      question: 'On which year did the first Star Wars movie (A New Hope, Episode IV) came out in theaters ?',
+      solution: '1977',
+    },
+    {
+      question: 'In Star Wars, On which planet did Anakin live when he was little ?',
+      solution: 'Tatooine',
+    },
+    {
+      question: 'On which year did the first Harry Potter book was released ?',
+      solution: '1997',
+    },
   ],
 
   isMusicPlay: false,
@@ -54,6 +90,7 @@ const app = {
   question: '',
   solution: '',
   isLose : false,
+  isWin: false,
 
   init: () => {
     music = new Audio('js/soundEffect/joystock-neon-lights.mp3')
@@ -75,13 +112,13 @@ const app = {
     app.isMusicPlay = !app.isMusicPlay
     if(app.isMusicPlay) {
       music.play()
-      play.classList.add('fa-play-circle')
-      play.classList.remove('fa-stop-circle')
+      play.classList.add('fa-stop-circle')
+      play.classList.remove('fa-play-circle')
     } else if (!app.isMusicPlay) {
       music.pause()
       music.currentTime = 0
-      play.classList.remove('fa-play-circle')
-      play.classList.add('fa-stop-circle')
+      play.classList.remove('fa-stop-circle')
+      play.classList.add('fa-play-circle')
     }
   },
 
@@ -122,6 +159,8 @@ const app = {
         return app.startTheGame()
       case '/dice':
         return app.throwDice()
+      case '/restart':
+        return app.restart()
       default: if (app.isQuestion) {
         return app.verifyAnswer(app.inputValue)
       } else {
@@ -198,9 +237,27 @@ const app = {
       const positionToNumb = parseInt(position)
       if (positionToNumb === nextPosition) {
         allPosition[i].classList.add('player')
+      } else if (nextPosition > 19 || nextPosition === 19) {
+        allPosition[19].classList.remove('win')
+        allPosition[19].classList.add('player')
+        app.win()
       }
     }
 
+  },
+
+  win: () => {
+    app.outputValue = 'Congratulation you win ! GAME OVER ! You can restart the game by tapping \'/restart\''
+    app.isGameStarted = false
+    app.inputValue = ''
+    app.dice = null
+    app.isDiceThrown = false
+    app.isQuestion = false
+    app.attempt = 3
+    app.question = ''
+    app.solution = ''
+    app.isLose  = false
+    app.isWin = true
   },
 
   startQuestion: () => {
@@ -218,6 +275,7 @@ const app = {
   },
 
   startTheGame: () => {
+    if (app.isWin && !app.isLose) return app.outputValue = 'You need to type \'/restart\' to restart the game because you won at least one time'
     if(app.isGameStarted && app.isDiceThrown) {
       return app.outputValue = 'The game is already started, and you already rolled the dice. Please answer to the question'
     } else if (app.isGameStarted) {
@@ -225,6 +283,23 @@ const app = {
     }
     app.isGameStarted = true
     app.outputValue = 'Game started, you can now throw the dice'
+  },
+
+  restart: () => {
+    if(!app.isWin) return app.outputValue = 'You already restarted the game, finish it first'
+    const player = document.querySelector('.player')
+    player.classList.remove('player')
+    const allPosition = document.querySelectorAll('.game-cell')
+    for(let i = 0; i < allPosition.length; i++) {
+      if(allPosition[0]) {
+        allPosition[0].classList.add('player')
+      } else if (allPosition[19]) {
+        allPosition[19].add('win')
+      }
+    }
+    app.outputValue = 'Game started, you can now throw the dice'
+    app.isWin = false
+    app.isGameStarted = true
   },
 
   clearAll: () => {
