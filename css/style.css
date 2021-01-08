@@ -15,7 +15,7 @@ body {
 .title-name {
   align-self: flex-start;
   font-size: 3.5rem;
-  width: 30rem;
+  width: 50rem;
   padding-bottom: 1rem;
   margin-left: 1rem;
   border-bottom: 1px solid #000;
@@ -29,10 +29,9 @@ body {
 }
 
 .song {
-  align-self: flex-end;
-  width: 25%;
+  align-self: center;
+  min-width: 25%;
   display: flex;
-  position: fixed;
   top: 1%;
   right: 1%;
   margin-right: 1rem;
@@ -67,7 +66,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   align-self: center;
-  width: 30rem;
+  width: 25rem;
   height: 30rem;
   box-shadow: 0px 0px 50px 0px #656565;
 }
@@ -147,4 +146,59 @@ body {
   font-size: 1.1rem;
   color: #6eff13;
 }
+
+@media(max-width: 1024px) {
+  .title-description {
+    align-self: center;
+  }
 }
+
+@media(max-width: 600px) {
+  
+  .title-name {
+      align-self: flex-start;
+      font-size: 2rem;
+      width: 20rem;
+      padding-bottom: 1rem;
+      margin-left: 1rem;
+      border-bottom: 1px solid #000;
+  }
+
+  .title-description  {
+    align-self: center;
+    margin-left: 1rem;
+    width: 80%;
+    font-size: 1.2rem;
+  }
+
+  .song {
+    align-self: flex-start;
+    width: 91%;
+    display: flex;
+    position: inherit;
+    top: 1%;
+    right: 1%;
+    margin-right: 1rem;
+    padding: 1rem;
+    box-shadow: 0px 0px 50px 0px #656565;
+  }
+
+  .music {
+    font-size: 4rem;
+  }
+
+  .game {
+    width: 18rem;
+    height: 18rem;
+  }
+
+  .game-cell {
+    width: 23%;
+  }
+
+  .terminal {
+    width: 18rem;
+    height: 19rem;
+  }
+  
+  }
