@@ -197,8 +197,9 @@ body {
   }
 
   .terminal {
-    width: 18rem;
+    width: 27rem;
     height: 19rem;
+    font-size: 0.8rem;
   }
   
   }
